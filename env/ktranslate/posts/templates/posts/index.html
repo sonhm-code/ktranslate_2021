@@ -7,11 +7,11 @@
     <link rel="stylesheet" href="{% static 'posts/style.css' %}">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ktranslate</title>
+    <title>도전 K번역</title>
 </head>
 <body>
     <h1>Posts</h1>
-    {% if posts %}
+    {% if posts != None %}
     <table>
         <thead>
             <tr>
@@ -27,7 +27,7 @@
             <tr>
                 <td>{{ post.author }}</td>
                 <td>{{ post.request }}</td>
-                <td>{{ post.response }}</td>
+                <td></td>
                 <td>{{ post.created_at }}</td>
                 <td><a href="{% url 'posts:detail' post.id %}">보기</a></td>
             </tr>
@@ -37,5 +37,6 @@
     {% else %}
     <p>요청한 번역이 없습니다.</p>
     {% endif %}
+    <a href="{% url 'posts:new' %}">번역 요청하기</a>
 </body>
 </html>

@@ -1,0 +1,29 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="{% static 'posts/style.css' %}">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>도전 K번역</title>
+</head>
+<body>
+    <h1>🙏🏻 번역요청하기</h1>
+    <form method="POST" action="{% url 'posts:update' post.id %}">
+        {% csrf_token %}
+        <div>
+            <label for="author">글쓴이</label>
+            <input type="text" id="author" name="author" value="{{ post.author }}">
+        </div>  
+        <div>
+            <label for="request">요청</label>
+            <textarea name="request" id="request" cols="30" rows="10">{{ post.request }}</textarea>
+        </div>
+        <input type="submit" value="수정하기">
+    </form>
+    
+    <a href="{% url 'posts:index' %}">목록으로 돌아가기</a>
+</body>
+</html>

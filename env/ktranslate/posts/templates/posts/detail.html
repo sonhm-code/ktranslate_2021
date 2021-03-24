@@ -7,10 +7,11 @@
     <link rel="stylesheet" href="{% static 'posts/style.css' %}">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>detail</title>
+    <title>도전 K번역</title>
 </head>
 <body>
-    {% if post %}
+    <h1>번역글 확인하기</h1>
+    {% if post != None %}
 
     <h2>작성자</h2>
     <p>{{ post.author }}</p>
@@ -25,6 +26,8 @@
         <p>No Post</p>
 
     {% endif %}
-    <a href="{% url 'posts:index' %}">목록</a>
+    <a href="{% url 'posts:index' %}">목록으로 돌아가기</a>
+    <a href="{% url 'posts:edit' post.id %}">수정하기</a>
+    <a href="{% url 'posts:delete' post.id %}">삭제하기</a>
 </body>
 </html>
