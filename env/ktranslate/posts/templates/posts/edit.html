@@ -1,15 +1,8 @@
+{% extends 'base.html' %}
+
 {% load static %}
 
-<!DOCTYPE html>
-<html lang="ko">
-<head>
-    <meta charset="UTF-8">
-    <link rel="stylesheet" href="{% static 'posts/style.css' %}">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>도전 K번역</title>
-</head>
-<body>
+{% block content %}
     <h1>🙏🏻 번역요청하기</h1>
     <form method="POST" action="{% url 'posts:update' post.id %}">
         {% csrf_token %}
@@ -25,5 +18,5 @@
     </form>
     
     <a href="{% url 'posts:index' %}">목록으로 돌아가기</a>
-</body>
-</html>
+
+{% endblock %}
