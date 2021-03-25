@@ -2,8 +2,13 @@
 
 {% load static %}
 
+{% block style %}
+    <link rel="stylesheet" href="{% static 'posts/style.css' %}">
+{% endblock %}
+
 {% block content %}
-    <h1>🙏🏻 번역요청하기</h1>
+<div class="container-fluid">
+    <h1>🙏🏻 요청하기</h1>
     <form method="POST" action="{% url 'posts:create' %}">
         {% csrf_token %}
         <div>
@@ -18,5 +23,5 @@
     </form>
     
     <a href="{% url 'posts:index' %}">목록으로 돌아가기</a>
-
+</div>
 {% endblock %}
