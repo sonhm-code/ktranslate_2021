@@ -11,11 +11,6 @@
 <h1 class="mb-3">🙏🏻 요청하기</h1>
 <form method="POST" action="{% url 'posts:create' %}">
     {% csrf_token %}
-    <!-- 유저 영역 -->
-    <div class="mb-3">
-        <label for="author" class="form-label">글쓴이</label>
-        <input class="form-control" type="text" id="author" name="author">
-    </div>
     <!-- 본문 영역 -->
     <div class="row">
         <div class="mb-3 col-md-6">

@@ -11,11 +11,6 @@
 <h1 class="mb-3">🙏🏻 수정하기</h1>
 <form method="POST" action="{% url 'posts:update' post.id %}">
     {% csrf_token %}
-    <!-- 유저영역 -->
-    <div class="mb-3">
-        <label for="author" class="form-label">글쓴이</label>
-        <input class="form-control" type="text" id="author" name="author" value="{{ post.author }}">
-    </div>
     <!-- 본문영역   -->
     <div class="row">
         <div class="mb-3 col-md-6">
@@ -24,7 +19,7 @@
         </div>
         <div class="mb-3 col-md-6">
             <label for="response" class="form-label">번역응답</label>
-            <textarea class="form-control" name="response" id="response" rows="3" placeholder="번역된 글이 없습니다."></textarea>
+            <textarea class="form-control" name="response" id="response" rows="3" placeholder="번역된 글이 없습니다." readonly disabled></textarea>
         </div>
     </div>
     <input class="btn btn-primary mb-3" type="submit" value="확인">

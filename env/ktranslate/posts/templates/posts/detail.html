@@ -7,14 +7,9 @@
 {% endblock %}
 
 {% block content %}
-    <h1 class="mb-3">🙏🏻 요청하기</h1>
+    <h1 class="mb-3">🙏🏻 {{ post.user.get_username }}님의 요청</h1>
 
     {% if post != None %}
-    <!-- 유저영역 -->
-    <div class="mb-3">
-        <label for="author" class="form-label">글쓴이</label>
-        <input class="form-control" type="text" id="author" name="author" placeholder="{{ post.author }}" readonly disabled>
-    </div>
     <!-- 본문영역   -->
     <div class="row">
         <div class="mb-3 col-md-6">
@@ -31,9 +26,11 @@
         <p>No Post</p>
 
     {% endif %}
-    <div>
-        <a class="btn btn-primary mb-3" href="{% url 'posts:edit' post.id %}">수정하기</a>
-        <a class="btn btn-primary mb-3" href="{% url 'posts:delete' post.id %}">삭제하기</a>
-    </div>
+    {% if user == post.user %}
+        <div>
+            <a class="btn btn-primary mb-3" href="{% url 'posts:edit' post.id %}">수정하기</a>
+            <a class="btn btn-primary mb-3" href="{% url 'posts:delete' post.id %}">삭제하기</a>
+        </div>
+    {% endif %}
     <a href="{% url 'posts:index' %}">목록으로 돌아가기</a>
 {% endblock %}

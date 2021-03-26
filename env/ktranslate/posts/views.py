@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from .models import Post
 from django.utils import timezone
+from django.contrib.auth.decorators import login_required
 
 # Create your views here.
 
@@ -23,21 +24,29 @@ def detail(request,post_id):
     return render(request, 'posts/detail.html', context)
 
 
+@login_required
 def new(request):
+    
     return render(request, 'posts/new.html')
 
 
+@login_required
 def create(request):
-    author = request.POST.get('author')
+
+    user = request.user
     request = request.POST.get('request')
-    post = Post(author=author, request=request, created_at=timezone.now())
+    post = Post(user=user, request=request, created_at=timezone.now())
     post.save()
 
-    return redirect('posts:detail', post_id = post.id)
+    return redirect('posts:index')
 
 
+@login_required
 def edit(request,post_id):
-    post = Post.objects.get(id = post_id)
+    try:
+        post = Post.objects.get(id = post_id, user = request.user)
+    except Post.DoesNotExist:
+        return redirect('posts:index')
     context = {
         "post" : post
     }
@@ -45,17 +54,24 @@ def edit(request,post_id):
     return render(request, 'posts/edit.html', context)
 
 
+@login_required
 def update(request, post_id):
-    post = Post.objects.get(id = post_id)
-    post.author = request.POST.get('author')
+    try:
+        post = Post.objects.get(id = post_id, user = request.user)
+    except Post.DoesNotExist:
+        return redirect('posts:index')
     post.request = request.POST.get('request')
     post.save()
 
-    return redirect('posts:detail', post_id = post.id)
+    return redirect('posts:index')
 
 
+@login_required
 def delete(request, post_id):
-    post = Post.objects.get(id = post_id)
+    try:
+        post = Post.objects.get(id = post_id, user = request.user)
+    except Post.DoesNotExist:
+        return redirect('posts:index')
     post.delete()
 
     return redirect('posts:index')

@@ -13,9 +13,25 @@
     <title>도전 K번역</title>
 </head>
 <body>
-    <nav class="navbar navbar-dark bg-primary navbar-fixed-top mb-3">
+    <nav class="navbar navbar-dark bg-primary navbar-fixed-top mb-3">    
         <div class="container-fluid col-md-9 align-self-center">
-            <a class="btn btn-primary btn-lg btn-outline-light" href="{% url 'posts:new' %}">번역 요청하기</a> 
+            {% if user.is_authenticated %}
+                <form method="POST" action="{% url 'accounts:logout' %}">
+                    {% csrf_token %}
+                        <span class="text-white">🙋🏻‍♀️ {{ user.get_username }}님 환영합니다.</span>
+                        <button type="submit" class="btn btn-primary">로그아웃</button>
+                </form>
+            {% else %}
+                <a href="{% url 'accounts:login' %}">
+                    <button class="btn btn-primary">로그인</button>
+                </a>    
+                <a href="{% url 'accounts:sign_up' %}">
+                    <button class="btn btn-primary">회원가입</button>
+                </a>
+            {%endif%}
+            <a class="btn btn-primary btn-lg btn-outline-light" href="{% url 'posts:new' %}">
+                번역 요청하기
+            </a> 
         </div>
     </nav>
     <div class="container-fluid col-md-9 align-self-center ">
