@@ -7,23 +7,33 @@
 {% endblock %}
 
 {% block content %}
-<div class="container-fluid">
+    <h1 class="mb-3">🙏🏻 요청하기</h1>
+
     {% if post != None %}
-    <h2>작성자</h2>
-    <p>{{ post.author }}</p>
-
-    <h2>번역요청</h2>
-    <p>{{ post.request }}</p>
-
-    <h2>요청일</h2>
-    <p>{{ post.created_at }}</p>
+    <!-- 유저영역 -->
+    <div class="mb-3">
+        <label for="author" class="form-label">글쓴이</label>
+        <input class="form-control" type="text" id="author" name="author" placeholder="{{ post.author }}" readonly disabled>
+    </div>
+    <!-- 본문영역   -->
+    <div class="row">
+        <div class="mb-3 col-md-6">
+            <label for="request" class="form-label">번역요청</label>
+            <textarea class="form-control" name="request" id="request" rows="3" placeholder="{{ post.request }}" readonly></textarea>
+        </div>
+        <div class="mb-3 col-md-6">
+            <label for="response" class="form-label">번역응답</label>
+            <textarea class="form-control" name="response" id="response" rows="3" placeholder="번역된 글이 없습니다." readonly disabled></textarea>
+        </div>
+    </div>
 
     {% else %}
         <p>No Post</p>
 
     {% endif %}
+    <div>
+        <a class="btn btn-primary mb-3" href="{% url 'posts:edit' post.id %}">수정하기</a>
+        <a class="btn btn-primary mb-3" href="{% url 'posts:delete' post.id %}">삭제하기</a>
+    </div>
     <a href="{% url 'posts:index' %}">목록으로 돌아가기</a>
-    <a href="{% url 'posts:edit' post.id %}">수정하기</a>
-    <a href="{% url 'posts:delete' post.id %}">삭제하기</a>
-</div>
 {% endblock %}

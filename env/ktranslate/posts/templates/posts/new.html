@@ -7,21 +7,29 @@
 {% endblock %}
 
 {% block content %}
-<div class="container-fluid">
-    <h1>🙏🏻 요청하기</h1>
-    <form method="POST" action="{% url 'posts:create' %}">
-        {% csrf_token %}
-        <div>
-            <label for="author">글쓴이</label>
-            <input type="text" id="author" name="author">
-        </div>  
-        <div>
-            <label for="request">요청</label>
-            <textarea name="request" id="request" cols="30" rows="10"></textarea>
+
+<h1 class="mb-3">🙏🏻 요청하기</h1>
+<form method="POST" action="{% url 'posts:create' %}">
+    {% csrf_token %}
+    <!-- 유저 영역 -->
+    <div class="mb-3">
+        <label for="author" class="form-label">글쓴이</label>
+        <input class="form-control" type="text" id="author" name="author">
+    </div>
+    <!-- 본문 영역 -->
+    <div class="row">
+        <div class="mb-3 col-md-6">
+            <label for="request" class="form-label">번역요청</label>
+            <textarea class="form-control" name="request" id="request" rows="3" placeholder="300자 이내만 입력 가능합니다."></textarea>
         </div>
-        <input type="submit" value="요청하기">
-    </form>
-    
-    <a href="{% url 'posts:index' %}">목록으로 돌아가기</a>
-</div>
+        <div class="mb-3 col-md-6">
+            <label for="response" class="form-label">번역응답</label>
+            <textarea class="form-control" name="response" id="response" rows="3" placeholder="" disabled readonly></textarea>
+        </div>
+    </div>
+    <input class="btn btn-primary mb-3" type="submit" value="확인">
+</form>
+
+<a href="{% url 'posts:index' %}">목록으로 돌아가기</a>
+
 {% endblock %}

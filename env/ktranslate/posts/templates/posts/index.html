@@ -7,33 +7,32 @@
 {% endblock %}
 
 {% block content %}
-    <div class="container-fluid">
-        {% if posts != None %}
-        <table class="table">
-            <thead class="table-light">
-                <tr>
-                    <th>작성자</th>
-                    <th>번역전</th>
-                    <th>번역후</th>
-                    <th>생성일</th>
-                    <th>상세</th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for post in posts %}
-                <tr>
-                    <td>{{ post.author }}</td>
-                    <td>{{ post.request }}</td>
-                    <td></td>
-                    <td>{{ post.created_at }}</td>
-                    <td><a href="{% url 'posts:detail' post.id %}">보기</a></td>
-                </tr>
-                {% endfor %}
-            </tbody>
-        </table>
-        {% else %}
-        <p>요청한 번역이 없습니다.</p>
-        {% endif %}
-        <a href="{% url 'posts:new' %}">번역 요청하기</a>
-    </div>
+
+    {% if posts != None %}
+    <table class="table">
+        <thead class="table-light">
+            <tr>
+                <th>작성자</th>
+                <th>번역전</th>
+                <th>번역후</th>
+                <th>생성일</th>
+                <th>상세</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for post in posts %}
+            <tr>
+                <td>{{ post.author }}</td>
+                <td>{{ post.request }}</td>
+                <td></td>
+                <td>{{ post.created_at }}</td>
+                <td><a href="{% url 'posts:detail' post.id %}">보기</a></td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    {% else %}
+    <p>요청한 번역이 없습니다.</p>
+    {% endif %}
+
 {% endblock %}
