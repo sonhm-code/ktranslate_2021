@@ -17,6 +17,7 @@ class Comment(models.Model):
     post = models.ForeignKey(Post, on_delete=models.CASCADE, related_name='comment_set', null=False)
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, null=False)
     response = models.CharField(max_length=300)
+    liked_users = models.ManyToManyField(settings.AUTH_USER_MODEL, related_name='liked_comments')
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 

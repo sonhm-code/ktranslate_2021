@@ -7,8 +7,8 @@
 {% endblock %}
 
 {% block content %}
-
 <h1 class="mb-3">🙏🏻 수정하기</h1>
+
 <form method="POST" action="{% url 'posts:update' post.id %}">
     {% csrf_token %}
     <!-- 본문영역   -->
@@ -24,6 +24,31 @@
     </div>
     <input class="btn btn-primary mb-3" type="submit" value="확인">
 </form>
+
+{% if post.comment_set.exists %}
+    <div class="my-4">
+        <table class="table table-hover">
+            <thead class="table-light">
+                <tr>
+                    <th>작성자</th>
+                    <th>번역글</th>
+                    <th>등록일</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for comment in post.comment_set.iterator %}
+                <tr>
+                    <td>{{ comment.user.get_username }}</td>
+                    <td>{{ comment.response }}</td>
+                    <td>{{ comment.created_at }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+{% endif %}
+
+
 
 
 {% endblock %}
