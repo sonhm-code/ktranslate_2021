@@ -24,8 +24,9 @@ def detail(request,post_id):
     return render(request, 'posts/detail.html', context)
 
 
-@login_required
 def new(request):
+    if not request.user.is_authenticated:
+        return redirect('accounts:login')
     
     return render(request, 'posts/new.html')
 

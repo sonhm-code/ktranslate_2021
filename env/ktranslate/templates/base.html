@@ -15,23 +15,35 @@
 <body>
     <nav class="navbar navbar-dark bg-primary navbar-fixed-top mb-3">    
         <div class="container-fluid col-md-9 align-self-center">
-            {% if user.is_authenticated %}
-                <form method="POST" action="{% url 'accounts:logout' %}">
-                    {% csrf_token %}
-                        <span class="text-white">🙋🏻‍♀️ {{ user.get_username }}님 환영합니다.</span>
-                        <button type="submit" class="btn btn-primary">로그아웃</button>
-                </form>
-            {% else %}
-                <a href="{% url 'accounts:login' %}">
-                    <button class="btn btn-primary">로그인</button>
-                </a>    
-                <a href="{% url 'accounts:sign_up' %}">
-                    <button class="btn btn-primary">회원가입</button>
+            <!-- 홈 로고 -->
+            <a class="navbar-brand" href="{% url 'posts:index' %}">
+                <i class="fab fa-korvue"></i> 
+            </a>
+            <!-- 메뉴 영역 -->
+            <div class="float-center">
+                {% if user.is_authenticated %}
+                    <ul class="nav">
+                        <li class="nav-item"><span class="nav-link text-white">🙋🏻‍♀️ {{ user.get_username }}님 환영합니다.</span></li>
+                        <li class="nav-item"><a class="nav-link text-white" href="{% url 'accounts:logout' %}">로그아웃</a></li>
+                    <!-- <form method="POST" action="{% url 'accounts:logout' %}">
+                        {% csrf_token %}
+                                <button type="submit" class="btn btn-primary">로그아웃</button>
+                    </form> -->
+                    </ul>
+                {% else %}
+                    <ul class="nav">
+                        <li class="nav-item"><a class="nav-link text-white" href="{% url 'accounts:login' %}">로그인</a></li>  
+                        <li class="nav-item"><a class="nav-link text-white" href="{% url 'accounts:sign_up' %}">회원가입</a></li>
+                    </ul>
+                {%endif%}
+            </div>
+            <!-- 요청하기 영역 -->
+            <div class="float-md-right">
+                <a class="btn btn-primary btn-outline-light" href="{% url 'posts:new' %}">
+                    번역 요청하기
                 </a>
-            {%endif%}
-            <a class="btn btn-primary btn-lg btn-outline-light" href="{% url 'posts:new' %}">
-                번역 요청하기
-            </a> 
+            </div>
+            
         </div>
     </nav>
     <div class="container-fluid col-md-9 align-self-center ">
@@ -39,5 +51,6 @@
         {% endblock %}
     </div>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js" integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf" crossorigin="anonymous"></script>
+    <script defer src="https://use.fontawesome.com/releases/v5.15.3/js/all.js" integrity="sha384-haqrlim99xjfMxRP6EWtafs0sB1WKcMdynwZleuUSwJR0mDeRYbhtY+KPMr+JL6f" crossorigin="anonymous"></script>
 </body>
 </html>
