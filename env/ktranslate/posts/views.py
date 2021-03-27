@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
-from .models import Post
+from .models import Post, Comment
 from django.utils import timezone
 from django.contrib.auth.decorators import login_required
 
@@ -76,3 +76,13 @@ def delete(request, post_id):
     post.delete()
 
     return redirect('posts:index')
+
+
+@login_required
+def comment(request, post_id):
+    user = request.user
+    response = request.POST.get('response')
+    comment = Comment(user=user, response=response, created_at=timezone.now())
+    comment.save()
+
+    return redirect('posts:detail', post_id)

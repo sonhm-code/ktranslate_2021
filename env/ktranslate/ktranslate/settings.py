@@ -124,3 +124,9 @@ STATIC_URL = '/static/'
 STATICFILES_DIRS = [
     BASE_DIR / 'static'
 ]
+
+
+# Django에서 권장하는 사용자 모델 참조 방법
+# https://devlog.jwgo.kr/2020/05/14/recommended-refer-user-model-in-django/
+
+AUTH_USER_MODEL = 'auth.User'

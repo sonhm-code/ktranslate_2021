@@ -17,8 +17,8 @@
             <textarea class="form-control" name="request" id="request" rows="3" placeholder="{{ post.request }}" readonly></textarea>
         </div>
         <div class="mb-3 col-md-6">
-            <label for="response" class="form-label">번역응답</label>
-            <textarea class="form-control" name="response" id="response" rows="3" placeholder="번역된 글이 없습니다." readonly disabled></textarea>
+            <label for="official_response" class="form-label">공식번역</label>
+            <textarea class="form-control" id="official_response" rows="3" placeholder="번역된 글이 없습니다." readonly disabled></textarea>
         </div>
     </div>
 
@@ -31,5 +31,45 @@
             <a class="btn btn-primary mb-3" href="{% url 'posts:edit' post.id %}">수정하기</a>
             <a class="btn btn-primary mb-3" href="{% url 'posts:delete' post.id %}">삭제하기</a>
         </div>
+    {% else %}
+        <div class="comment-area">
+            <div class="card my-4">
+                <h6 class="card-header">번역을 해주세요.</h5>
+                <div class="card-body">
+                    <form method="POST" action="{% url 'posts:comment' post.id %}">
+                        {% csrf_token %}
+                        <label class="sr-only" for="response" >번역응답</label>
+                        <textarea id="response" class="form-control mb-3" rows="3" name="response" ></textarea>
+                        <button type="submit" class="btn btn-primary float-right">확인</button>
+                    </form>
+                </div>
+            </div>
+        </div>
     {% endif %}
+
+    {% if post.comment_set.exists %}
+        <div class="my-4">
+            <table class="table table-hover">
+                <thead class="table-light">
+                    <tr>
+                        <th>작성자</th>
+                        <th>번역글</th>
+                        <th>등록일</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for comment in post.comment_set.iterator %}
+                    <tr>
+                        <td>{{ comment.user.get_username }}</td>
+                        <td>{{ comment.response }}</td>
+                        <td>{{ comment.created_at }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    {% endif %}
+
+
+
 {% endblock %}
