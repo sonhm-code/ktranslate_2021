@@ -80,9 +80,10 @@ def delete(request, post_id):
 
 @login_required
 def comment(request, post_id):
+    post = Post.objects.get(id = post_id)
     user = request.user
     response = request.POST.get('response')
-    comment = Comment(user=user, response=response, created_at=timezone.now())
+    comment = Comment(post=post, user=user, response=response, created_at=timezone.now())
     comment.save()
 
     return redirect('posts:detail', post_id)
