@@ -54,10 +54,15 @@ def create(request):
 def edit(request,post_id):
     try:
         post = Post.objects.get(id = post_id, user = request.user)
+        if not Comment.objects.filter(post__id = post_id):
+            comment = '응답없음'
+        else:
+            comment = Comment.objects.filter(post__id = post_id).order_by('-liked_users')[0]
     except Post.DoesNotExist:
         return redirect('posts:index')
     context = {
-        "post" : post
+        "post" : post,
+        "comment" : comment
     }
 
     return render(request, 'posts/edit.html', context)

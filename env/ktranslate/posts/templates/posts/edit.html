@@ -15,11 +15,11 @@
     <div class="row">
         <div class="mb-3 col-md-6">
             <label for="request" class="form-label">번역요청</label>
-            <textarea class="form-control" name="request" id="request" rows="3" placeholder="300자 이내만 입력 가능합니다." >{{ post.request }}</textarea>
+            <textarea class="form-control" name="request" id="request" rows="3">{{ post.request }}</textarea>
         </div>
         <div class="mb-3 col-md-6">
             <label for="official_response" class="form-label">공식번역</label>
-            <textarea class="form-control" id="official_response" rows="3" placeholder="번역된 글이 없습니다." readonly disabled></textarea>
+            <textarea class="form-control" id="official_response" rows="3" placeholder="{{ comment.response }}" readonly disabled></textarea>
         </div>
     </div>
     <input class="btn btn-primary mb-3" type="submit" value="확인">
