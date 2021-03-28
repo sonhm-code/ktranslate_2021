@@ -3,6 +3,7 @@ from django.http import HttpResponse
 from .models import Post, Comment
 from django.utils import timezone
 from django.contrib.auth.decorators import login_required
+from django.db.models import Count
 
 # Create your views here.
 
@@ -17,8 +18,15 @@ def index(request):
 
 def detail(request,post_id):
     post = Post.objects.get(id = post_id)
+
+    if not Comment.objects.filter(post__id = post_id):
+        comment = '응답없음'
+    else:
+        comment = Comment.objects.filter(post__id = post_id).order_by('-liked_users')[0]
+    
     context = {
-        'post' : post
+        'post' : post,
+        'comment' : comment
     }
 
     return render(request, 'posts/detail.html', context)
@@ -106,3 +114,4 @@ def comment_like(request, post_id, comment_id):
         pass
 
     return redirect('posts:detail', post_id=post.id)
+
