@@ -33,6 +33,8 @@
                     <th>작성자</th>
                     <th>번역글</th>
                     <th>등록일</th>
+                    <th>좋아요수</th>
+                    <th>상세</th>
                 </tr>
             </thead>
             <tbody>
@@ -41,6 +43,12 @@
                     <td>{{ comment.user.get_username }}</td>
                     <td>{{ comment.response }}</td>
                     <td>{{ comment.created_at }}</td>
+                    <td>{{ comment.liked_users.count }}</td>
+                    {% if user in comment.liked_users.all %}
+                        <td><a class="text-secondary text-decoration-none" href="{% url 'posts:comment_like' post.id comment.id %}">좋아요</a></td>
+                    {% else %}
+                        <td><a class="text-primary text-decoration-none" href="{% url 'posts:comment_like' post.id comment.id %}">좋아요</a></td>
+                    {% endif %}
                 </tr>
                 {% endfor %}
             </tbody>

@@ -87,3 +87,22 @@ def comment(request, post_id):
     comment.save()
 
     return redirect('posts:detail', post_id)
+
+
+@login_required
+def comment_like(request, post_id, comment_id):
+    try:
+        post = Post.objects.get(id=post_id)
+        comment = Comment.objects.get(id=comment_id)
+
+        if request.user in comment.liked_users.all():
+            comment.liked_users.remove(request.user)
+        else:
+            comment.liked_users.add(request.user)
+        
+        return redirect('posts:detail', post_id=post.id)
+    
+    except Post.DoesNotExist:
+        pass
+
+    return redirect('posts:detail', post_id=post.id)
