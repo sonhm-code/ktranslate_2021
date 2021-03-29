@@ -20,8 +20,15 @@
                 <a class="navbar-brand" href="{% url 'posts:index' %}">
                     <i class="fab fa-korvue"></i> 
                 </a>
+                <!-- 검색 영역 -->
+                <div class="float-left">
+                    <form action="" method="get">
+                        <input type="text" name="q" value="{{q}}">
+                        <input type="submit" value="검색">
+                    </form>                    
+                </div>
                 <!-- 메뉴 영역 -->
-                <div class="float-center">
+                <div class="float-md-right">
                     {% if user.is_authenticated %}
                         <ul class="nav">
                             <li class="nav-item"><span class="nav-link text-white">🙋🏻‍♀️ {{ user.get_username }}님 환영합니다.</span></li>
@@ -39,7 +46,7 @@
                     {%endif%}
                 </div>
                 <!-- 요청하기 영역 -->
-                <div class="float-md-right">
+                <div class="float-md-right" >
                     <a class="btn btn-primary btn-outline-light" href="{% url 'posts:new' %}">
                         번역 요청하기
                     </a>

@@ -9,6 +9,11 @@ from django.db.models import Count
 
 def index(request):
     posts = Post.objects.all()
+    q = request.GET.get('q','')
+
+    if q:
+        posts = posts.filter(request__icontains=q)
+
     context = {
         'posts' : posts
     }
