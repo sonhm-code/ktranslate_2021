@@ -15,7 +15,8 @@ def index(request):
         posts = posts.filter(request__icontains=q)
 
     context = {
-        'posts' : posts
+        'posts' : posts,
+        'q' : q
     }
 
     return render(request,'posts/index.html',context)

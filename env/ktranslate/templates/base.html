@@ -14,21 +14,21 @@
 </head>
 <body>
     <div class="wrap">
-        <nav class="navbar navbar-dark bg-primary fixed-top ">    
-            <div class="container-fluid col-md-9 align-self-center">
+        <nav class="navbar navbar-dark bg-primary align-self-center fixed-top ">    
+            <div class="container-fluid col-9">
                 <!-- 홈 로고 -->
-                <a class="navbar-brand" href="{% url 'posts:index' %}">
+                <a class="navbar-brand col-1" href="{% url 'posts:index' %}">
                     <i class="fab fa-korvue"></i> 
                 </a>
                 <!-- 검색 영역 -->
-                <div class="float-left">
-                    <form action="" method="get">
-                        <input type="text" name="q" value="{{q}}">
-                        <input type="submit" value="검색">
+                <div class="col-5">
+                    <form class="input-group" action="" method="get">
+                        <input class="form-control w-50" type="text" name="q" value="{{q}}">
+                        <input class="btn btn-light" type="submit" value="검색">
                     </form>                    
                 </div>
                 <!-- 메뉴 영역 -->
-                <div class="float-md-right">
+                <div class="col-4">
                     {% if user.is_authenticated %}
                         <ul class="nav">
                             <li class="nav-item"><span class="nav-link text-white">🙋🏻‍♀️ {{ user.get_username }}님 환영합니다.</span></li>
@@ -46,7 +46,7 @@
                     {%endif%}
                 </div>
                 <!-- 요청하기 영역 -->
-                <div class="float-md-right" >
+                <div class="col-auto" >
                     <a class="btn btn-primary btn-outline-light" href="{% url 'posts:new' %}">
                         번역 요청하기
                     </a>
